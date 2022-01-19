@@ -1,0 +1,26 @@
+const mongoose= require('mongoose');
+const mongoosePaginate = require('mongoose-paginate-v2');
+
+const FormSchema=new mongoose.Schema({
+    createdBy:{
+        type:mongoose.Schema.Types.ObjectId,
+        ref:'User'
+    },
+    name:String,
+    description:{
+        type:String,
+        default:""
+    },
+    questions:[{
+        open:{type:Boolean, default:false},
+        questionText:String,
+        options:[{
+            optionText:String,
+        }]
+    }]
+},{timestamps:true});
+
+FormSchema.plugin(mongoosePaginate);
+const Form=mongoose.model('Form',FormSchema,'Form');
+
+module.exports=Form;
